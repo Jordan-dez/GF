@@ -1,0 +1,1 @@
+export const UrlBase="https://api.gf.dev.kloudlabs.fr/api/v1/";
