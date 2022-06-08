@@ -3,14 +3,14 @@ import  * as types from "../../actions/SuiviFormation/SuiviFormationTypes";
 const initialContactState ={
     listsuiviformation:[],
     suiviformation:{},
-    loading:false,
+    loading:true,
 };
 const suiviFormationReducers=(state=initialContactState, action)=>{
     switch(action.type) {
         case types.GET_SUIVIFORMATIONS:
             return {
                 ...state,
-                suiviformations: action.payload,
+                listsuiviformation: action.payload,
                 loading: false,
             }
         case types.DELETE_SUIVIFORMATION:

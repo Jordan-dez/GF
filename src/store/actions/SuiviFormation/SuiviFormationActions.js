@@ -1,11 +1,12 @@
 import * as types from './SuiviFormationTypes';
 import axios from 'axios';
 import store from '../../store';
+import { UrlBase } from '../../../services/UrlBase';
 //import { getAccesToken } from '../selectors/AuthSelectors';
 
-const getAllsuiviformation =(suiviformations) =>({
+const getAllsuiviformation =(listsuiviformation) =>({
     type: types.GET_SUIVIFORMATIONS,
-    payload: suiviformations,
+    payload: listsuiviformation,
 
 });
 const suiviformationDeleted=()=>({
@@ -22,7 +23,7 @@ export const loadSuiviFormation=()=>{
     console.log("state", state);
     // console.log("loading contacts token",token)
     return function(dispatch) {
-        fetch('https://api.gf.dev.kloudlabs.fr/api/v1/suivi-formations',{
+        fetch(`${UrlBase}suivi-formations`,{
             headers: {
                 Authorization : `Bearer ${token}`
             }
@@ -33,10 +34,17 @@ export const loadSuiviFormation=()=>{
         }).catch((error) => console.log(error))
     }
 };
-export const deleteSuiviTelephone =(id) => {
+export const deleteSuiviFormation=(id) => {
+    const state = store.getState();
+    const token = state.auth.accessToken
     return function(dispatch){
-        fetch(`suivi-formations/${id}`).then((response) => {
-            console.log("response deleteContact",response);
+        fetch(`${UrlBase}suivi-formations/${id}`,{
+            method:'delete',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response) => {
             dispatch(suiviformationDeleted());
             dispatch(loadSuiviFormation())
         }).catch((error) =>console.log(error));

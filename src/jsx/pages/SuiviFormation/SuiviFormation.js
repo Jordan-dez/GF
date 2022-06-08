@@ -7,7 +7,7 @@ import PageTitle from "../../layouts/PageTitle";
 import pic1 from '../../../images/profile/small/pic1.jpg';
 import Editable from '../Editable';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadSuiviFormation } from '../../../store/actions/SuiviFormation/SuiviFormationActions';
+import { deleteSuiviFormation, loadSuiviFormation } from '../../../store/actions/SuiviFormation/SuiviFormationActions';
 
 
 const tableList = [
@@ -40,19 +40,23 @@ const tableList = [
 const SuiviFormation = () =>{
 	const [contents, setContents] = useState(tableList);
     let  dispatch = useDispatch();
-    const {suiviformations} = useSelector(state=>state.suiviformations);
+    const {listsuiviformation} = useSelector(state=>state.suiviformations);
 	// delete data  
     const handleDeleteClick = (contentId) => {
-        const newContents = [...contents];    
-        const index = contents.findIndex((content)=> content.id === contentId);
-        newContents.splice(index, 1);
-        setContents(newContents);
+        // const newContents = [...contents];    
+        // const index = contents.findIndex((content)=> content.id === contentId);
+        // newContents.splice(index, 1);
+        // setContents(newContents);
+		if(window.confirm("êtes-vous sûr de supprimer ce suivi formation")){
+			dispatch(deleteSuiviFormation(parseInt(contentId)));
+			swal('bravo!', 'suivi-formation supprimée', "success");
+		}
     }
 	//fetching data with useEffect
     useEffect(()=>{
         dispatch(loadSuiviFormation())
     },[])
-    console.log("loadSuiviFormation",suiviformations)
+    console.log("loadSuiviFormation",listsuiviformation)
 	//Modal box
 	const [addCard, setAddCard] = useState(false);
 	//Add data 
@@ -297,7 +301,7 @@ const SuiviFormation = () =>{
 											</tr>
 										</thead>
 										<tbody>
-											{suiviformations && suiviformations.map((suiviformation)=>(
+											{listsuiviformation && listsuiviformation.map((suiviformation)=>(
 												<>
 													{editContentId === suiviformation.id ? 
 														( 
@@ -305,12 +309,12 @@ const SuiviFormation = () =>{
 																handleEditFormChange={handleEditFormChange} handleCancelClick={handleCancelClick}/> 
 																) : 
 														( 
-															<tr>
+															<tr key={suiviformation.id}>
 																{/* <td><img className="rounded-circle" width="35" src={pic1} alt="" /></td> */}
 																<td>{suiviformation.formation.nom}</td>
 																<td>{suiviformation.formation.description}</td>
 																<td>{suiviformation.nom.lastname}&nbsp;{suiviformation.nom.firstname}</td>
-																<td>{suiviformation.statut.name}</td>
+																<td className='text-white px-3 text-center'><p style={{ backgroundColor:suiviformation.statut.color_hexa}}><span className='font-weight-bold text-uppercase'>{suiviformation.statut.name}</span></p></td>
 																<td>{suiviformation.create_by.name}&nbsp;{suiviformation.create_by.firstname}</td>
 																<td>
 																	<div className="d-flex">
