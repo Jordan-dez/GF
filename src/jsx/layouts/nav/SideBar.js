@@ -133,11 +133,15 @@ const SideBar = () => {
       "uc-lightgallery",
     ],
 	redux = [
-       "redux-form",
-	   "redux-wizard",    
-       "todo",
-    ],
+    "redux-form",
+    "redux-wizard",    
+    "todo",
+  ],
     widget = ["widget-basic"],
+    contact = ["contact"],
+    gfs = ["gfs"],
+    suiviformation = ["suiviformation"],
+    suivitelephonique = ["suivitelephonique"],
     forms = [
       "form-element",
       "form-wizard",
@@ -439,6 +443,30 @@ const SideBar = () => {
             <Link to="widget-basic" className="ai-icon" >
               <i className="flaticon-013-checkmark"></i>
               <span className="nav-text">Widget</span>
+            </Link>
+          </li>
+          <li className={`${contact.includes(path) ? "mm-active" : ""}`}>
+            <Link to="contact" className="ai-icon" >
+              {/* <i className="flaticon-013-checkmark"></i> */}
+              <span className="nav-text">contact</span>
+            </Link>
+          </li>
+          <li className={`${gfs.includes(path) ? "mm-active" : ""}`}>
+            <Link to="gfs" className="ai-icon" >
+              {/* <i className="flaticon-013-checkmark"></i> */}
+              <span className="nav-text">gfs</span>
+            </Link>
+          </li>
+          <li className={`${suiviformation.includes(path) ? "mm-active" : ""}`}>
+            <Link to="suiviformation" className="ai-icon" >
+              {/* <i className="flaticon-013-checkmark"></i> */}
+              <span className="nav-text">suivi formation</span>
+            </Link>
+          </li>
+          <li className={`${suivitelephonique.includes(path) ? "mm-active" : ""}`}>
+            <Link to="suivitelephonique" className="ai-icon" >
+              {/* <i className="flaticon-013-checkmark"></i> */}
+              <span className="nav-text">suivi Téléphonique</span>
             </Link>
           </li>
           <li className={`${forms.includes(path) ? "mm-active" : ""}`}>
